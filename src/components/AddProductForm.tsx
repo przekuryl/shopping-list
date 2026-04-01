@@ -1,21 +1,24 @@
 import { useState, useCallback } from 'react';
 import { EmojiPicker } from './EmojiPicker';
+import { SectionSelect } from './SectionSelect';
 
 interface AddProductFormProps {
-  onAdd: (name: string, icon?: string) => void;
+  onAdd: (name: string, icon?: string, section?: string) => void;
 }
 
 export function AddProductForm({ onAdd }: AddProductFormProps) {
   const [name, setName] = useState('');
   const [icon, setIcon] = useState('');
+  const [section, setSection] = useState('');
   const [showPicker, setShowPicker] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    onAdd(name, icon || undefined);
+    onAdd(name, icon || undefined, section || undefined);
     setName('');
     setIcon('');
+    setSection('');
     setShowPicker(false);
   };
 
@@ -70,6 +73,9 @@ export function AddProductForm({ onAdd }: AddProductFormProps) {
           Add
         </button>
       </div>
+
+      {/* Section select */}
+      <SectionSelect value={section} onChange={setSection} />
 
       {/* Emoji picker overlay */}
       {showPicker && (

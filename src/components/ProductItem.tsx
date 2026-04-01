@@ -45,16 +45,25 @@ export function ProductItem({ product, onToggle, onRemove }: ProductItemProps) {
         </span>
       )}
 
-      {/* Product name — clickable to toggle */}
+      {/* Product name + section — clickable to toggle */}
       <button
         onClick={() => onToggle(product.id)}
-        className={`flex-1 text-left text-sm font-medium transition-all duration-200 ${
+        className={`flex-1 text-left transition-all duration-200 ${
           checked
-            ? 'line-through text-gray-400 dark:text-gray-500'
+            ? 'text-gray-400 dark:text-gray-500'
             : 'text-gray-800 dark:text-gray-100'
         }`}
       >
-        {product.name}
+        <span className={`text-sm font-medium ${checked ? 'line-through' : ''}`}>
+          {product.name}
+        </span>
+        {product.section && (
+          <span className={`block text-xs mt-0.5 ${
+            checked ? 'text-gray-300 dark:text-gray-600' : 'text-gray-400 dark:text-gray-500'
+          }`}>
+            {product.section}
+          </span>
+        )}
       </button>
 
       {/* Remove button */}
